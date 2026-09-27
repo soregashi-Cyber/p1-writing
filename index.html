@@ -1,0 +1,989 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16233A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="準1級添削">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>準1級ライティング添削</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@700&display=swap">
+<style>
+:root{
+  --paper:#F3F5F8; --sheet:#FFFFFF; --ink:#16233A; --ink-2:#4B5770; --ink-3:#7B869B;
+  --rule:#D8DEE7; --line:#E4E9F0; --red:#C22F3B; --red-soft:#FBEAEB; --blue:#2A5DA6; --blue-soft:#E8EFF9;
+  --ok:#2E7A52; --ok-soft:#E4F2EA; --warn:#A86A12; --warn-soft:#FAF0DF;
+  --shadow:0 1px 2px rgba(22,35,58,.06),0 6px 20px rgba(22,35,58,.06);
+  --f-jp:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --f-head:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --f-en:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#10151E; --sheet:#171F2D; --ink:#E6EBF3; --ink-2:#A6B1C4; --ink-3:#7C879B;
+    --rule:#2A3446; --line:#222C3D; --red:#F06B76; --red-soft:#3A1F26; --blue:#86ABE8; --blue-soft:#1C2A42;
+    --ok:#6CC596; --ok-soft:#17302A; --warn:#E3B061; --warn-soft:#352A17;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#10151E; --sheet:#171F2D; --ink:#E6EBF3; --ink-2:#A6B1C4; --ink-3:#7C879B;
+  --rule:#2A3446; --line:#222C3D; --red:#F06B76; --red-soft:#3A1F26; --blue:#86ABE8; --blue-soft:#1C2A42;
+  --ok:#6CC596; --ok-soft:#17302A; --warn:#E3B061; --warn-soft:#352A17;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;}
+[hidden]{display:none!important}
+.settings label{display:block;font-weight:500;font-size:13.5px;margin:12px 0 4px}
+.settings input,.settings select{width:100%;padding:9px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--sheet);font:inherit;color:inherit}
+.settings input{font-family:var(--f-mono);font-size:14px}
+.settings ol{margin:6px 0 0;padding-left:1.3em;font-size:13.5px;color:var(--ink-2)}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-jp);font-size:15px;line-height:1.7;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1180px;margin:0 auto}
+button,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+header.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding-block:20px 16px;border-bottom:1px solid var(--rule);margin-bottom:20px}
+.brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brand h1{font-family:var(--f-head);font-size:24px;margin:0;letter-spacing:.02em;text-wrap:balance}
+.brand .stamp{font-family:var(--f-head);color:var(--red);border:2px solid var(--red);border-radius:4px;padding:0 6px;font-size:13px;line-height:1.5;transform:rotate(-4deg);display:inline-block}
+.brand small{color:var(--ink-3);font-size:12px}
+.seg{display:inline-flex;background:var(--sheet);border:1px solid var(--rule);border-radius:10px;padding:3px}
+.seg button{border:0;background:transparent;padding:6px 14px;border-radius:7px;font-weight:500;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+.seg button{white-space:nowrap}
+@media (max-width:480px){.seg button{padding:6px 10px;font-size:13px}}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow);padding:20px}
+.card h2{font-family:var(--f-head);font-size:17px;margin:0 0 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-family:var(--f-mono)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.spacer{flex:1}
+
+select.pick{max-width:100%;padding:7px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--sheet)}
+.btn{border:1px solid var(--rule);background:var(--sheet);border-radius:8px;padding:7px 14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{border-color:var(--ink-3)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn.primary:hover{filter:brightness(1.07)}
+:root[data-theme="dark"] .btn.primary{color:#1a0a0c}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#1a0a0c}}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--ink-2)}
+
+.task-inst{font-family:var(--f-en);font-size:14px;color:var(--ink-2);border-left:3px solid var(--rule);padding-left:12px;margin:14px 0}
+.task-inst ul{margin:4px 0 0;padding-left:18px}
+.topic{font-family:var(--f-en);font-size:19px;font-weight:600;line-height:1.45;margin:6px 0 10px;text-wrap:balance}
+.points{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.points li{font-family:var(--f-en);font-size:14px;border:1px solid var(--rule);border-radius:999px;padding:2px 12px;background:var(--paper)}
+.passage{font-family:var(--f-en);font-size:15.5px;line-height:1.75}
+.passage p{margin:0 0 .8em}
+.passage h3{font-family:var(--f-en);font-size:17px;margin:4px 0 10px;text-align:center}
+
+.sheet-wrap{position:relative;border:1px solid var(--rule);border-radius:8px;background:var(--sheet);overflow:hidden}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--rule);background:var(--paper);flex-wrap:wrap}
+textarea#answer{display:block;width:100%;min-height:340px;resize:vertical;border:0;outline:0;background-color:transparent;padding:4px 16px 16px 16px;font-family:var(--f-en);font-size:16px;line-height:32px;
+  background-image:linear-gradient(to bottom,transparent 31px,var(--line) 31px);background-size:100% 32px;background-attachment:local;background-position:0 4px}
+.count{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px}
+.meter{width:120px;height:6px;border-radius:3px;background:var(--line);position:relative;overflow:hidden}
+.meter i{position:absolute;inset:0 auto 0 0;background:var(--ink-3);border-radius:3px;transition:width .2s}
+.meter b{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--ok) 30%,transparent)}
+.count.ok{color:var(--ok)} .count.ok .meter i{background:var(--ok)}
+.count.over{color:var(--red)} .count.over .meter i{background:var(--red)}
+.hint{font-size:12.5px;color:var(--ink-3)}
+
+/* Score */
+.score-head{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.total{font-family:var(--f-head);font-size:54px;line-height:1;color:var(--red);font-variant-numeric:tabular-nums}
+.total small{font-size:20px;color:var(--ink-3)}
+.verdict{display:inline-block;font-weight:700;border-radius:6px;padding:2px 10px;font-size:13px}
+.verdict.pass{background:var(--ok-soft);color:var(--ok)}
+.verdict.near{background:var(--warn-soft);color:var(--warn)}
+.verdict.low{background:var(--red-soft);color:var(--red)}
+.crit{display:grid;grid-template-columns:5.5em 1fr auto;gap:6px 12px;align-items:center;margin-top:16px}
+.crit .name{font-weight:700;font-size:14px}
+.pips{display:flex;gap:4px}
+.pips span{height:10px;flex:1;border-radius:2px;background:var(--line)}
+.pips span.on{background:var(--red)}
+.crit .num{font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
+.crit .cm{grid-column:1/-1;font-size:13.5px;color:var(--ink-2);margin:-2px 0 6px;padding-bottom:8px;border-bottom:1px dashed var(--rule)}
+.crit .cm:last-child{border-bottom:0}
+
+.overall{font-size:14.5px;margin:0}
+ul.good{margin:6px 0 0;padding-left:1.2em;font-size:14px}
+ul.good li::marker{color:var(--ok)}
+
+.marked{font-family:var(--f-en);font-size:16px;line-height:1.9;white-space:pre-wrap;background:var(--paper);border-radius:8px;padding:12px 14px;margin:0 0 14px}
+.marked del{color:var(--red);text-decoration:none;border-bottom:2px solid var(--red);background:var(--red-soft);border-radius:2px;padding:0 1px}
+.marked sup{font-family:var(--f-mono);font-size:10px;color:var(--red);font-weight:500;margin-left:1px}
+ol.fixes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ol.fixes li{display:grid;grid-template-columns:1.8em 1fr;gap:4px 8px;font-size:14px}
+ol.fixes .n{font-family:var(--f-mono);color:var(--red);font-size:12px;padding-top:3px}
+ol.fixes .pair{font-family:var(--f-en);font-size:15px}
+ol.fixes .pair s{color:var(--ink-3)}
+ol.fixes .pair .arrow{color:var(--ink-3);margin:0 6px}
+ol.fixes .pair em{font-style:normal;color:var(--red);font-weight:600}
+ol.fixes .why{grid-column:2;color:var(--ink-2);font-size:13.5px}
+.tag{font-size:11px;border:1px solid var(--rule);border-radius:4px;padding:0 5px;margin-left:6px;color:var(--ink-2);font-family:var(--f-jp);vertical-align:1px}
+
+/* Reader */
+.reader{font-family:var(--f-en);font-size:16.5px;line-height:1.85}
+.reader p{margin:0 0 .8em}
+.reader .s{border-radius:3px;transition:background .15s;cursor:pointer}
+.reader .s:hover{background:var(--line)}
+.reader .s.now{background:var(--blue-soft);box-shadow:0 0 0 2px var(--blue-soft)}
+.player{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--rule);border-radius:10px;background:var(--paper);margin-bottom:14px}
+.player .play{background:var(--blue);border-color:var(--blue);color:#fff;min-width:6.5em;justify-content:center}
+:root[data-theme="dark"] .player .play{color:#0e1726}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .player .play{color:#0e1726}}
+.player select{padding:5px 8px;border:1px solid var(--rule);border-radius:7px;background:var(--sheet);font-size:13px;max-width:14em}
+.player .wc{font-family:var(--f-mono);font-size:12px;color:var(--ink-3)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);margin-bottom:14px;flex-wrap:wrap}
+.tabs button{border:0;background:none;padding:6px 12px;border-bottom:2px solid transparent;color:var(--ink-2);font-weight:500;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--blue)}
+
+.rubric{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:4px}
+.rubric div{border:1px solid var(--rule);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--ink-2)}
+.rubric b{display:block;color:var(--ink);font-size:14px}
+@media (max-width:480px){.rubric{grid-template-columns:minmax(0,1fr)}}
+
+.notice{border-radius:8px;padding:10px 14px;font-size:13.5px}
+.notice.err{background:var(--red-soft);color:var(--red)}
+.notice.info{background:var(--blue-soft);color:var(--blue)}
+.thinking{display:flex;align-items:center;gap:12px;color:var(--ink-2)}
+.pen{width:18px;height:18px;border:2px solid var(--red);border-right-color:transparent;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.pen{animation:none}.meter i{transition:none}}
+
+.hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.hist li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.hist li:last-child{border-bottom:0}
+.hist .d{font-family:var(--f-mono);font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.hist .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist .sc{font-family:var(--f-mono);font-weight:500;font-variant-numeric:tabular-nums}
+.empty{color:var(--ink-3);font-size:13.5px}
+.checks fieldset{border:0;padding:0;margin:0 0 10px;min-width:0}
+.checks legend{font-weight:700;font-size:14px;margin-bottom:2px;padding:0}
+.checks label{display:flex;gap:10px;align-items:flex-start;font-size:14px;padding:7px 0;border-bottom:1px dashed var(--rule);cursor:pointer}
+.checks input{margin-top:4px;accent-color:var(--red);width:17px;height:17px;flex:none}
+.howto{margin:0;padding-left:1.3em;font-size:14px;color:var(--ink-2)}
+.howto li{margin-bottom:4px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>準1級ライティング添削</h1>
+      <span class="stamp">添削</span>
+      <small>2024年度リニューアル形式対応</small>
+    </div>
+    <div class="seg" role="group" aria-label="問題形式">
+      <button id="modeOpinion" aria-pressed="true">意見論述 120–150語</button>
+      <button id="modeSummary" aria-pressed="false">要約 60–70語</button>
+    </div>
+    <button id="settingsBtn" class="btn" aria-expanded="false">⚙ 設定</button>
+  </header>
+
+  <section class="card settings" id="settings" hidden style="margin-bottom:20px">
+    <h2><span class="label">Settings</span>AI添削の設定</h2>
+    <p style="margin:0;font-size:14px;color:var(--ink-2)">添削と問題作成には Claude API キーが必要です。キーはこのスマホの中だけに保存され、Anthropic 以外には送信されません。模範解答の読み上げはキーなしで使えます。</p>
+    <ol>
+      <li>パソコンかスマホで console.anthropic.com にログイン</li>
+      <li>「API Keys」→「Create Key」でキーを作成（sk-ant- で始まる文字列）</li>
+      <li>下の欄に貼り付けて「保存」</li>
+    </ol>
+    <label for="apiKey">Claude API キー</label>
+    <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-...">
+    <label for="modelSel">採点に使うモデル</label>
+    <select id="modelSel">
+      <option value="claude-opus-5">Claude Opus 5（高精度・1回 約10〜20円）</option>
+      <option value="claude-sonnet-5">Claude Sonnet 5（速くて安い・1回 約4〜8円）</option>
+    </select>
+    <div class="row" style="margin-top:14px">
+      <button id="saveKey" class="btn primary">保存</button>
+      <button id="delKey" class="btn ghost">キーを削除</button>
+      <span id="keyStatus" class="hint"></span>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="col">
+      <section class="card" aria-labelledby="qTitle">
+        <h2 id="qTitle"><span class="label">Question</span><span id="qHeading">問題</span></h2>
+        <div class="row">
+          <select id="problemPick" class="pick" aria-label="問題を選ぶ"></select>
+          <button id="genBtn" class="btn" title="Claudeが新しい問題と模範解答を作ります">＋ AIで新しい問題</button>
+        </div>
+        <div id="genStatus"></div>
+        <div id="question"></div>
+      </section>
+
+      <section class="card" aria-labelledby="aTitle">
+        <h2 id="aTitle"><span class="label">Answer sheet</span>解答欄</h2>
+        <div class="sheet-wrap">
+          <div class="sheet-head">
+            <div id="count" class="count"><span id="countNum">0 words</span><span class="meter"><b id="meterBand"></b><i id="meterFill"></i></span></div>
+            <span class="hint">下書きは自動保存されます</span>
+          </div>
+          <textarea id="answer" spellcheck="false" placeholder="Write your answer here in English..."></textarea>
+        </div>
+        <div class="row" style="margin-top:14px">
+          <button id="gradeBtn" class="btn primary">添削して採点する</button>
+          <button id="selfBtn" class="btn">セルフチェック</button>
+          <button id="stopBtn" class="btn" hidden>中止</button>
+          <span class="spacer"></span>
+          <button id="clearBtn" class="btn ghost">解答を消す</button>
+        </div>
+        <div id="clearConfirm" class="notice info" style="margin-top:10px" hidden>
+          解答を消去しますか？ <button id="clearYes" class="btn" style="margin-left:8px">消去する</button> <button id="clearNo" class="btn ghost">やめる</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="card" id="resultCard" aria-live="polite"></section>
+
+      <section class="card" aria-labelledby="rTitle">
+        <h2 id="rTitle"><span class="label">Listen</span>音声で確認</h2>
+        <div class="tabs" role="tablist">
+          <button role="tab" id="tabModel" aria-selected="true">模範解答</button>
+          <button role="tab" id="tabRevised" aria-selected="false" disabled>あなたの答案（修正版）</button>
+          <button role="tab" id="tabPassage" aria-selected="false" hidden>問題文</button>
+        </div>
+        <div class="player" id="player">
+          <button id="playBtn" class="btn play">▶ 再生</button>
+          <button id="stopSpeak" class="btn">■ 停止</button>
+          <select id="rateSel" aria-label="読み上げ速度">
+            <option value="0.75">ゆっくり 0.75×</option>
+            <option value="0.9" selected>やや遅め 0.9×</option>
+            <option value="1">標準 1.0×</option>
+            <option value="1.15">速め 1.15×</option>
+          </select>
+          <select id="voiceSel" aria-label="音声"></select>
+          <span class="spacer"></span>
+          <span class="wc" id="readerWc"></span>
+        </div>
+        <div id="ttsNote" class="notice info" hidden>このブラウザでは音声読み上げが使えません。Chrome・Edge・Safari の最新版でお試しください。</div>
+        <div class="reader" id="reader"></div>
+        <p class="hint" style="margin:6px 0 0">文をクリックするとそこから読み上げます。シャドーイングや音読にも使えます。</p>
+      </section>
+
+      <section class="card" aria-labelledby="gTitle">
+        <h2 id="gTitle"><span class="label">How to</span>使い方</h2>
+        <ol class="howto">
+          <li>上で「意見論述」か「要約」を選び、問題を選びます。</li>
+          <li>解答欄に英文を書きます。語数メーターが緑になれば目安の語数です。</li>
+          <li>「添削して採点する」で、AIが英検の4観点（16点満点）で採点・添削します。AIが使えないときは「セルフチェック」で自己採点できます。</li>
+          <li>模範解答や修正版を読み上げで聞き、音読・シャドーイングで表現を身につけます。</li>
+        </ol>
+        <p class="hint" style="margin:8px 0 0">AI添削には各自の Claude API キーが必要です（「⚙ 設定」から登録）。 下書きと記録はお使いのブラウザにだけ保存され、ほかの人には見えません。</p>
+      </section>
+
+      <section class="card" aria-labelledby="hTitle">
+        <h2 id="hTitle"><span class="label">Log</span>最近の記録</h2>
+        <ul class="hist" id="hist"></ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="bank">
+{
+  "opinion": [
+    {
+      "id": "o1",
+      "topic": "Agree or disagree: Companies should allow all employees to work from home.",
+      "points": ["Productivity", "Work-life balance", "Communication", "Fairness"],
+      "model": "I disagree that companies should allow all employees to work from home. Although remote work has some advantages, I believe it causes problems in terms of communication, productivity, and fairness.\n\nFirst, working from home makes communication between colleagues more difficult. Many small problems are solved through casual conversations in the office, but such interactions rarely happen online. As a result, decisions can take longer.\n\nSecond, productivity may decline for some workers. Not everyone has a quiet space at home, and distractions such as family members or housework can make it hard to concentrate.\n\nFinally, not all jobs can be done remotely. If only office workers are allowed to stay home, employees in factories or stores may feel they are being treated unfairly.\n\nFor these reasons, I think companies should offer flexible options rather than allowing everyone to work from home."
+    },
+    {
+      "id": "o2",
+      "topic": "Should the Japanese government do more to address the declining birthrate?",
+      "points": ["The economy", "Social security", "Childcare support", "Work culture"],
+      "model": "I believe the Japanese government should do more to address the declining birthrate. This issue affects the economy, public finances, and the future of local communities.\n\nFirst, a shrinking population will seriously damage the economy. With fewer young people entering the workforce, companies will face labor shortages, and economic growth will slow down.\n\nSecond, the social security system will become difficult to maintain. As the number of elderly people increases, fewer workers will have to support rising pension and medical costs, which is not sustainable.\n\nThird, many young couples want children but give up because of financial worries. If the government expanded childcare support and reduced education costs, more people would feel able to start a family.\n\nFor these reasons, I strongly believe that the government must take stronger action to tackle the declining birthrate."
+    },
+    {
+      "id": "o3",
+      "topic": "Can renewable energy replace fossil fuels in the near future?",
+      "points": ["Technology", "Cost", "Environment", "Energy security"],
+      "model": "I do not think renewable energy can replace fossil fuels in the near future. While it is important to promote clean energy, there are still serious obstacles in terms of technology, cost, and energy security.\n\nFirst, current technology cannot yet provide a stable power supply. Solar and wind power depend on the weather, and large-scale batteries to store surplus electricity are still limited.\n\nSecond, the cost of the transition is enormous. Building new power plants and upgrading national power grids would require huge investments, which could lead to higher electricity bills for households.\n\nThird, relying on a single type of energy is risky. Countries need a balanced mix of energy sources to avoid shortages during natural disasters or international crises.\n\nFor these reasons, I believe fossil fuels will remain necessary for some time, even as renewable energy grows."
+    },
+    {
+      "id": "o4",
+      "topic": "Should social media companies be held responsible for the content posted on their platforms?",
+      "points": ["Misinformation", "Freedom of speech", "Cyberbullying", "Protection of young people"],
+      "model": "I believe social media companies should be held responsible for the content posted on their platforms. This is necessary to reduce misinformation, protect young people, and prevent online harassment.\n\nFirst, false information spreads extremely quickly on social media. During disasters or elections, fake news can cause panic or influence public opinion. If companies were held responsible, they would invest more in checking and removing harmful posts.\n\nSecond, young people are especially vulnerable online. Children can easily be exposed to violent or inappropriate content, and platforms have the technology to prevent this.\n\nFinally, holding companies accountable would help victims of cyberbullying. At present, it is often difficult for victims to have abusive posts removed quickly.\n\nFor these reasons, I think social media companies must take greater responsibility, although they should also respect users' freedom of speech."
+    }
+  ],
+  "summary": [
+    {
+      "id": "s1",
+      "title": "The Four-Day Workweek",
+      "passage": "In recent years, a growing number of companies around the world have begun experimenting with a four-day workweek. Under this system, employees work one fewer day each week while receiving the same salary. Supporters argue that the traditional five-day schedule was designed for an industrial economy and no longer suits modern office work, where productivity depends more on concentration than on the number of hours spent at a desk.\n\nTrials conducted in several countries have produced encouraging results. Many participating firms reported that their employees were less stressed and took fewer sick days. Surprisingly, productivity often stayed the same or even improved, as workers found ways to eliminate unnecessary meetings and focus on important tasks. Some companies also found it easier to attract talented job applicants.\n\nHowever, the system is not suitable for every industry. Hospitals, shops, and customer service centers must operate continuously, so reducing working days may require hiring additional staff, which increases costs. Critics also worry that employees may feel pressure to complete five days of work in four, leading to longer and more exhausting working days.",
+      "model": "Some companies are testing a four-day workweek with no reduction in pay, believing the five-day model no longer fits modern work. Trials have shown that employees become less stressed and that productivity is often maintained or improved, while recruitment becomes easier. However, the system may raise costs in industries that must run continuously, and workers may face longer, more tiring days."
+    },
+    {
+      "id": "s2",
+      "title": "Vertical Farming",
+      "passage": "Vertical farming, in which crops are grown in stacked layers inside buildings, is attracting attention as a new way to produce food. Instead of sunlight and soil, these farms use LED lights and nutrient-rich water, and computers carefully control temperature and humidity. Because they can be built in the middle of cities, vertical farms allow fresh vegetables to be grown close to the people who eat them.\n\nThis method offers several benefits. Since crops are grown indoors, they are not affected by bad weather or pests, so farmers can harvest throughout the year without using pesticides. Moreover, vertical farms use far less water than traditional agriculture because water is recycled within the system. Transporting food over shorter distances also reduces carbon emissions.\n\nNevertheless, vertical farming faces significant challenges. The lighting and climate control systems consume large amounts of electricity, making operating costs high. As a result, most vertical farms can only profitably grow leafy greens and herbs, which grow quickly and sell at high prices. Staple crops such as wheat and rice remain far too expensive to produce this way.",
+      "model": "Vertical farming grows crops indoors in stacked layers under artificial conditions, allowing food to be produced in cities. It enables year-round harvests without pesticides, saves water through recycling, and cuts transport emissions. However, its high electricity use makes it costly, so it is currently profitable only for fast-growing, high-value crops like leafy greens, not for staple crops such as wheat and rice."
+    },
+    {
+      "id": "s3",
+      "title": "Shared Electric Scooters",
+      "passage": "Shared electric scooters have appeared on the streets of many cities over the past decade. Users can find a scooter with a smartphone app, ride it to their destination, and simply leave it there. City officials hoped these vehicles would offer a convenient way to travel short distances and encourage people to drive their cars less often.\n\nIn some respects, the scooters have been successful. They are popular with young people and commuters, who use them to travel between train stations and their homes or offices. Because they produce no exhaust gases while in use, they are also seen as an environmentally friendly option, and they help reduce traffic congestion in crowded city centers.\n\nOn the other hand, the scooters have created new problems. Riders sometimes travel on sidewalks at high speed, putting pedestrians at risk, and the number of accidents has risen in several cities. In addition, scooters left carelessly on streets can block paths for people in wheelchairs. As a result, some cities have introduced strict rules, and a few have banned the scooters entirely.",
+      "model": "Shared electric scooters, rented through smartphone apps, were introduced to make short trips convenient and reduce car use. They have become popular among commuters and are considered eco-friendly and helpful in easing traffic congestion. However, they have caused safety problems for pedestrians, more accidents, and obstacles for wheelchair users, leading some cities to impose strict regulations or ban them completely."
+    }
+  ]
+}
+</script>
+
+<script>
+(() => {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+
+  const BANK = JSON.parse($("bank").textContent);
+  const MODES = {
+    opinion: { min: 120, max: 150, name: "意見論述", heading: "意見論述（English Composition）" },
+    summary: { min: 60, max: 70, name: "要約", heading: "要約（Summary）" }
+  };
+  const CRIT = [["content", "内容"], ["organization", "構成"], ["vocabulary", "語彙"], ["grammar", "文法"]];
+
+  // Problems generated by Claude are kept per viewer so they survive a reload.
+  const custom = store.get("p1w-custom", { opinion: [], summary: [] });
+  const state = {
+    mode: store.get("p1w-mode", "opinion"),
+    pid: null,
+    result: null,
+    readerKey: "model"
+  };
+
+  const problems = (m) => [...BANK[m], ...(custom[m] || [])];
+  const current = () => problems(state.mode).find((p) => p.id === state.pid) || problems(state.mode)[0];
+
+  function countWords(t) {
+    return (t.match(/[A-Za-z0-9]+(?:['’\-][A-Za-z0-9]+)*/g) || []).length;
+  }
+
+  // ---------- Question ----------
+  function renderPick() {
+    const list = problems(state.mode);
+    if (!list.some((p) => p.id === state.pid)) state.pid = store.get("p1w-pid-" + state.mode, list[0].id);
+    if (!list.some((p) => p.id === state.pid)) state.pid = list[0].id;
+    $("problemPick").innerHTML = list.map((p, i) => {
+      const label = state.mode === "opinion" ? p.topic : p.title;
+      const tag = p.ai ? "［AI］" : `No.${i + 1}`;
+      return `<option value="${esc(p.id)}">${tag} ${esc(label.length > 70 ? label.slice(0, 68) + "…" : label)}</option>`;
+    }).join("");
+    $("problemPick").value = state.pid;
+  }
+
+  function renderQuestion() {
+    const p = current();
+    const m = MODES[state.mode];
+    $("qHeading").textContent = m.heading;
+    $("modeOpinion").setAttribute("aria-pressed", state.mode === "opinion");
+    $("modeSummary").setAttribute("aria-pressed", state.mode === "summary");
+    if (state.mode === "opinion") {
+      $("question").innerHTML = `
+        <div class="task-inst">
+          <ul>
+            <li>Write an essay on the given TOPIC.</li>
+            <li>Use TWO of the POINTS below to support your answer.</li>
+            <li>Structure: introduction, main body, and conclusion.</li>
+            <li>Suggested length: 120–150 words.</li>
+          </ul>
+        </div>
+        <div class="label">Topic</div>
+        <p class="topic">${esc(p.topic)}</p>
+        <div class="label" style="margin-bottom:6px">Points</div>
+        <ul class="points">${p.points.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
+    } else {
+      $("question").innerHTML = `
+        <div class="task-inst">
+          <ul>
+            <li>Read the article below and summarize it in your own words as far as possible in English.</li>
+            <li>Suggested length: 60–70 words.</li>
+          </ul>
+        </div>
+        <div class="passage"><h3>${esc(p.title)}</h3>${p.passage.split(/\n\s*\n/).map((x) => `<p>${esc(x)}</p>`).join("")}</div>`;
+    }
+    $("tabPassage").hidden = state.mode !== "summary";
+  }
+
+  // ---------- Answer sheet ----------
+  const draftKey = () => `p1w-draft-${state.mode}-${state.pid}`;
+  function loadDraft() { $("answer").value = store.get(draftKey(), ""); updateCount(); }
+  function updateCount() {
+    const n = countWords($("answer").value);
+    const { min, max } = MODES[state.mode];
+    const scale = max * 1.3;
+    $("countNum").textContent = `${n} / ${min}–${max} words`;
+    $("meterFill").style.width = Math.min(100, (n / scale) * 100) + "%";
+    $("meterBand").style.left = (min / scale) * 100 + "%";
+    $("meterBand").style.width = ((max - min) / scale) * 100 + "%";
+    $("count").className = "count" + (n >= min && n <= max ? " ok" : n > max ? " over" : "");
+  }
+  let saveT;
+  $("answer").addEventListener("input", () => {
+    updateCount();
+    clearTimeout(saveT);
+    saveT = setTimeout(() => store.set(draftKey(), $("answer").value), 400);
+  });
+  $("clearBtn").onclick = () => { $("clearConfirm").hidden = false; };
+  $("clearNo").onclick = () => { $("clearConfirm").hidden = true; };
+  $("clearYes").onclick = () => {
+    $("answer").value = ""; store.set(draftKey(), ""); updateCount(); $("clearConfirm").hidden = true; $("answer").focus();
+  };
+
+  // ---------- Claude ----------
+  // ---------- Settings (API key stays on this device) ----------
+  const getKey = () => store.get("p1w-apikey", "");
+  const getModel = () => store.get("p1w-model", "claude-opus-5");
+  function openSettings(open) {
+    $("settings").hidden = !open;
+    $("settingsBtn").setAttribute("aria-expanded", String(open));
+    if (open) {
+      $("apiKey").value = getKey();
+      $("modelSel").value = getModel();
+      $("keyStatus").textContent = getKey() ? "保存済み" : "未設定";
+    }
+  }
+  $("settingsBtn").onclick = () => openSettings($("settings").hidden);
+  $("saveKey").onclick = () => {
+    const k = $("apiKey").value.trim();
+    if (k && !k.startsWith("sk-ant-")) { $("keyStatus").textContent = "sk-ant- で始まるキーを貼り付けてください"; return; }
+    store.set("p1w-apikey", k);
+    store.set("p1w-model", $("modelSel").value);
+    $("keyStatus").textContent = k ? "保存しました" : "未設定";
+    if (k) setTimeout(() => openSettings(false), 700);
+  };
+  $("delKey").onclick = () => { store.set("p1w-apikey", ""); $("apiKey").value = ""; $("keyStatus").textContent = "削除しました"; };
+
+  // ---------- Claude API ----------
+  const ERR = {
+    no_key: "AI添削を使うには、右上の「⚙ 設定」で Claude API キーを登録してください。キーがなくても「セルフチェック」で自己採点できます。",
+    auth: "API キーが正しくないか、無効になっています。「⚙ 設定」でキーを確認してください。",
+    credit: "API のクレジット残高が不足しています。console.anthropic.com でチャージしてください。",
+    rate_limited: "短時間に多くのリクエストがありました。少し時間をおいてからもう一度お試しください。",
+    overloaded: "Claude が混み合っています。少し時間をおいてからもう一度お試しください。",
+    refused: "この内容では添削できませんでした。解答の内容を見直してください。",
+    invalid_json: "添削結果の読み取りに失敗しました。もう一度お試しください。",
+    offline: "インターネットに接続できません。通信環境を確認してください。",
+    truncated: "結果が途中で切れました。もう一度お試しください。"
+  };
+  const errMsg = (e) => ERR[e?.code] || `エラーが発生しました（${e?.message || "不明"}）。もう一度お試しください。`;
+
+  async function askClaude(prompt, schema, signal) {
+    const key = getKey();
+    if (!key) throw { code: "no_key" };
+    const model = getModel();
+    const headers = {
+      "content-type": "application/json",
+      "x-api-key": key,
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    };
+    const body = {
+      model,
+      max_tokens: 16000,
+      thinking: { type: "adaptive" },
+      output_config: { format: { type: "json_schema", schema } },
+      messages: [{ role: "user", content: prompt }]
+    };
+    if (model === "claude-opus-5") {
+      // If Opus declines, the API retries the same request on its recommended fallback model.
+      headers["anthropic-beta"] = "server-side-fallback-2026-07-01";
+      body.fallbacks = "default";
+    }
+    let res;
+    try {
+      res = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers, body: JSON.stringify(body), signal });
+    } catch (e) {
+      if (e?.name === "AbortError") throw { code: "cancelled" };
+      throw { code: "offline", message: String(e?.message || e) };
+    }
+    const data = await res.json().catch(() => null);
+    if (!res.ok) {
+      const msg = data?.error?.message || `HTTP ${res.status}`;
+      if (res.status === 401 || res.status === 403) throw { code: "auth", message: msg };
+      if (res.status === 429) throw { code: "rate_limited", message: msg };
+      if (res.status === 529 || res.status >= 500) throw { code: "overloaded", message: msg };
+      if (/credit balance/i.test(msg)) throw { code: "credit", message: msg };
+      throw { code: "api_error", message: msg };
+    }
+    if (data.stop_reason === "refusal") throw { code: "refused" };
+    if (data.stop_reason === "max_tokens") throw { code: "truncated" };
+    const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
+    try { return JSON.parse(text); }
+    catch {
+      const m = text.match(/\{[\s\S]*\}/);
+      if (m) { try { return JSON.parse(m[0]); } catch {} }
+      throw { code: "invalid_json" };
+    }
+  }
+
+  const obj = (props) => ({ type: "object", properties: props, required: Object.keys(props), additionalProperties: false });
+  const str = { type: "string" }, int = { type: "integer" };
+  const GRADE_SCHEMA = obj({
+    scores: obj({ content: int, organization: int, vocabulary: int, grammar: int }),
+    comments: obj({ content: str, organization: str, vocabulary: str, grammar: str }),
+    overall: str,
+    good_points: { type: "array", items: str },
+    corrections: { type: "array", items: obj({ original: str, corrected: str, type: str, explanation: str }) },
+    revised: str,
+    model_answer: str
+  });
+  const OPINION_SCHEMA = obj({ topic: str, points: { type: "array", items: str }, model: str });
+  const SUMMARY_SCHEMA = obj({ title: str, passage: str, model: str });
+
+  function buildPrompt(p, answer, n) {
+    const m = MODES[state.mode];
+    const task = state.mode === "opinion"
+      ? `TASK TYPE: Opinion essay (英作文・意見論述), 120–150 words.
+Instructions given to the candidate: Write an essay on the TOPIC. Use TWO of the POINTS to support your answer. Structure: introduction, main body, conclusion.
+TOPIC: ${p.topic}
+POINTS: ${p.points.join(", ")}
+
+Rubric (each 0–4):
+- content: clear position; two relevant reasons (from the POINTS or equivalent) that are developed with support.
+- organization: intro / body / conclusion; logical flow and appropriate discourse markers.
+- vocabulary: range and accuracy at CEFR B2 level; natural collocations.
+- grammar: range and accuracy of structures.`
+      : `TASK TYPE: Summary (英文要約), 60–70 words.
+Instructions given to the candidate: Summarize the passage in English, in your own words as far as possible.
+PASSAGE (title: ${p.title}):
+${p.passage}
+
+Rubric (each 0–4):
+- content: covers the key point of EACH paragraph accurately without adding opinions or minor details.
+- organization: coherent, logically connected summary; clear relationship between ideas (e.g. contrast).
+- vocabulary: paraphrases the passage instead of copying long phrases; accurate word choice.
+- grammar: range and accuracy; uses structures such as participles or relative clauses to condense.`;
+    return `You are an experienced examiner for the Eiken Grade Pre-1 (英検準1級) writing test. Grade the candidate's answer strictly but fairly, following the official 2024 format and rubric. All feedback text MUST be written in natural Japanese for a Japanese learner; English corrections stay in English.
+
+${task}
+
+Scoring notes:
+- If the answer is off-topic, mostly Japanese, or empty, content is 0 and other scores may be 0.
+- Word count of the candidate's answer: ${n} (target ${m.min}–${m.max}). Deduct if clearly outside the range.
+- Do not inflate scores. A 4 means near-flawless for this level.
+
+CANDIDATE'S ANSWER:
+"""
+${answer}
+"""
+
+Reply with ONLY a JSON object in this shape:
+{
+  "scores": {"content": 0-4, "organization": 0-4, "vocabulary": 0-4, "grammar": 0-4},
+  "comments": {"content": "日本語で1〜2文", "organization": "…", "vocabulary": "…", "grammar": "…"},
+  "overall": "総評（日本語で2〜4文。最も優先して直すべき点を具体的に）",
+  "good_points": ["良かった点を日本語で", "…"],
+  "corrections": [
+    {"original": "an EXACT substring copied from the candidate's answer", "corrected": "the fixed English", "type": "文法|語彙|表現|構成|内容", "explanation": "なぜ直すのかを日本語で簡潔に"}
+  ],
+  "revised": "The candidate's answer with minimal corrections applied, keeping their ideas and structure. Keep paragraph breaks as \\n\\n.",
+  "model_answer": "A high-scoring model answer for this task written in English (${m.min}–${m.max} words), paragraphs separated by \\n\\n."
+}
+List up to 10 corrections, most important first. "original" must match the candidate's text exactly so it can be highlighted.`;
+  }
+
+  let ctl = null, tick = null;
+  $("gradeBtn").onclick = async () => {
+    const answer = $("answer").value.trim();
+    const n = countWords(answer);
+    if (n < 5) { showNotice("err", "解答欄に英文を書いてから添削してください。"); return; }
+    if (!getKey()) { showNotice("err", ERR.no_key); openSettings(true); return; }
+    const p = current();
+    ctl = new AbortController();
+    $("gradeBtn").disabled = true; $("stopBtn").hidden = false;
+    const t0 = Date.now();
+    const paint = () => {
+      const s = Math.round((Date.now() - t0) / 1000);
+      $("resultCard").innerHTML = `<h2><span class="label">Result</span>添削中</h2>
+        <div class="thinking"><span class="pen"></span><div>赤ペンで添削しています… <span style="font-family:var(--f-mono)">${s}s</span><div class="hint">通常30秒〜1分ほどかかります。</div></div></div>`;
+    };
+    paint(); tick = setInterval(paint, 1000);
+    try {
+      const r = await askClaude(buildPrompt(p, answer, n), GRADE_SCHEMA, ctl.signal);
+      if (!r || typeof r !== "object" || !r.scores) throw { code: "invalid_json" };
+      const result = normalize(r, answer, p);
+      state.result = result;
+      renderResult();
+      $("tabRevised").disabled = !result.revised;
+      if (result.model_answer) setReader("model");
+      pushHistory(result);
+    } catch (e) {
+      if (e?.code === "cancelled") { renderIdle(); }
+      else {
+        showNotice("err", errMsg(e));
+        if (e?.code === "auth" || e?.code === "no_key") openSettings(true);
+      }
+    } finally {
+      clearInterval(tick); ctl = null;
+      $("gradeBtn").disabled = false; $("stopBtn").hidden = true;
+    }
+  };
+  $("stopBtn").onclick = () => ctl?.abort();
+
+  function clamp04(x) { x = Math.round(Number(x)); return Number.isFinite(x) ? Math.max(0, Math.min(4, x)) : 0; }
+  function normalize(r, answer, p) {
+    const scores = {}; CRIT.forEach(([k]) => (scores[k] = clamp04(r.scores?.[k])));
+    return {
+      mode: state.mode, pid: p.id, answer,
+      title: state.mode === "opinion" ? p.topic : p.title,
+      scores,
+      total: Object.values(scores).reduce((a, b) => a + b, 0),
+      comments: r.comments || {},
+      overall: String(r.overall || ""),
+      good: Array.isArray(r.good_points) ? r.good_points.map(String) : [],
+      corrections: Array.isArray(r.corrections) ? r.corrections.filter((c) => c && c.original && c.corrected).slice(0, 12) : [],
+      revised: String(r.revised || "").trim(),
+      model_answer: String(r.model_answer || "").trim()
+    };
+  }
+
+  function verdict(total) {
+    if (total >= 12) return ["pass", "合格圏"];
+    if (total >= 9) return ["near", "あと一歩"];
+    return ["low", "要強化"];
+  }
+
+  function markText(text, fixes) {
+    const spans = [];
+    fixes.forEach((c, i) => {
+      let from = 0, at;
+      while ((at = text.indexOf(c.original, from)) !== -1) {
+        const end = at + c.original.length;
+        if (!spans.some((s) => at < s.end && end > s.start)) { spans.push({ start: at, end, n: i + 1 }); break; }
+        from = at + 1;
+      }
+    });
+    spans.sort((a, b) => a.start - b.start);
+    let out = "", pos = 0;
+    spans.forEach((s) => {
+      out += esc(text.slice(pos, s.start)) + `<del>${esc(text.slice(s.start, s.end))}</del><sup>${s.n}</sup>`;
+      pos = s.end;
+    });
+    return out + esc(text.slice(pos));
+  }
+
+  function renderResult() {
+    const r = state.result;
+    const [cls, label] = verdict(r.total);
+    $("resultCard").innerHTML = `
+      <h2><span class="label">Result</span>採点結果<span class="tag">${esc(MODES[r.mode].name)}</span>${r.self ? `<span class="tag">自己採点</span>` : ""}</h2>
+      <div class="score-head">
+        <div class="total">${r.total}<small> / 16</small></div>
+        <div><span class="verdict ${cls}">${label}</span><div class="hint" style="margin-top:4px">4観点×4点。合格の目安は各観点3点前後（12点〜）</div></div>
+      </div>
+      <div class="crit">
+        ${CRIT.map(([k, name]) => `
+          <span class="name">${name}</span>
+          <span class="pips">${[1, 2, 3, 4].map((i) => `<span class="${i <= r.scores[k] ? "on" : ""}"></span>`).join("")}</span>
+          <span class="num">${r.scores[k]} / 4</span>
+          <span class="cm">${esc(r.comments[k] || "")}</span>`).join("")}
+      </div>
+      <h2 style="margin-top:18px"><span class="label">Overall</span>総評</h2>
+      <p class="overall">${esc(r.overall)}</p>
+      ${r.good.length ? `<h2 style="margin-top:18px"><span class="label">Strengths</span>良かった点</h2><ul class="good">${r.good.map((g) => `<li>${esc(g)}</li>`).join("")}</ul>` : ""}
+      ${r.self ? `<div class="row" style="margin-top:16px"><button class="btn" id="toModel">🔊 模範解答を聞く</button></div>` : `<h2 style="margin-top:18px"><span class="label">Corrections</span>添削<span class="tag">${r.corrections.length}か所</span></h2>
+      ${r.corrections.length ? `
+        <div class="marked">${markText(r.answer, r.corrections)}</div>
+        <ol class="fixes">${r.corrections.map((c, i) => `
+          <li><span class="n">${i + 1}</span>
+            <span class="pair"><s>${esc(c.original)}</s><span class="arrow">→</span><em>${esc(c.corrected)}</em>${c.type ? `<span class="tag">${esc(c.type)}</span>` : ""}</span>
+            <span class="why">${esc(c.explanation || "")}</span></li>`).join("")}
+        </ol>` : `<p class="empty">大きな誤りは見つかりませんでした。</p>`}
+      <div class="row" style="margin-top:16px"><button class="btn" id="toRevised">🔊 修正版を聞く</button><button class="btn" id="toModel">🔊 模範解答を聞く</button></div>`}`;
+    if ($("toRevised")) $("toRevised").onclick = () => { setReader("revised"); $("rTitle").scrollIntoView({ behavior: "smooth", block: "start" }); };
+    $("toModel").onclick = () => { setReader("model"); $("rTitle").scrollIntoView({ behavior: "smooth", block: "start" }); };
+  }
+
+  function renderIdle() {
+    const m = MODES[state.mode];
+    const summary = state.mode === "summary";
+    $("resultCard").innerHTML = `
+      <h2><span class="label">Result</span>採点基準</h2>
+      <p style="margin:0 0 12px;font-size:14px;color:var(--ink-2)">解答を書いて「添削して採点する」を押すと、英検の4観点で採点し、赤ペン添削・修正版・模範解答を返します。</p>
+      <div class="rubric">
+        <div><b>内容 0–4</b>${summary ? "各段落の要点を過不足なく押さえているか" : "立場が明確で、理由2つが具体的に説明されているか"}</div>
+        <div><b>構成 0–4</b>${summary ? "要点同士の関係（対比・因果）が論理的につながっているか" : "序論・本論・結論の流れと、つなぎ言葉の使い方"}</div>
+        <div><b>語彙 0–4</b>${summary ? "本文の丸写しを避け、自分の言葉で言い換えているか" : "準1級レベルの語彙を正確・自然に使えているか"}</div>
+        <div><b>文法 0–4</b>多様な構文を正確に使えているか</div>
+      </div>
+      <p class="hint" style="margin:12px 0 0">語数の目安は ${m.min}–${m.max} 語。大きく外れると減点対象になります。</p>`;
+  }
+
+  // ---------- Self check (works without AI) ----------
+  const CHECKS = {
+    opinion: {
+      content: ["最初の段落で立場（賛成・反対）をはっきり書いた", "理由を2つ挙げ、それぞれ具体例や説明で裏付けた"],
+      organization: ["序論・本論・結論の3部構成になっている", "First / Second / For these reasons などで流れを示した"],
+      vocabulary: ["同じ語の繰り返しを避けて言い換えた", "準1級レベルの語（significant, contribute to など）を正しく使った"],
+      grammar: ["主語と動詞の一致・時制・冠詞・複数形を見直した", "関係詞・分詞構文・仮定法など複数の構文を使った"]
+    },
+    summary: {
+      content: ["第1〜第3段落それぞれの要点が入っている", "自分の意見や細かい具体例を入れていない"],
+      organization: ["However などで要点同士の関係（対比・因果）を示した", "全体が1つのまとまった文章として読める"],
+      vocabulary: ["本文の表現を長く丸写ししていない", "具体的な内容を抽象的な言葉でまとめ直した"],
+      grammar: ["主語と動詞の一致・時制・冠詞・複数形を見直した", "分詞や関係詞を使って情報を短くまとめた"]
+    }
+  };
+  const hasResultHere = () => state.result && state.result.mode === state.mode && state.result.pid === state.pid;
+  $("selfBtn").onclick = () => {
+    const answer = $("answer").value.trim();
+    if (countWords(answer) < 5) { showNotice("err", "解答欄に英文を書いてからチェックしてください。"); return; }
+    const C = CHECKS[state.mode];
+    $("resultCard").innerHTML = `
+      <h2><span class="label">Self check</span>セルフチェック</h2>
+      <p style="margin:0 0 10px;font-size:14px;color:var(--ink-2)">下の模範解答と見比べながら、できている項目にチェックを入れてください。1項目2点、各観点4点満点です。</p>
+      <form id="selfForm" class="checks">
+        ${CRIT.map(([k, name]) => `<fieldset><legend>${name}</legend>${C[k].map((t, i) => `<label><input type="checkbox" id="chk-${k}-${i}" name="${k}"> <span>${esc(t)}</span></label>`).join("")}</fieldset>`).join("")}
+        <div class="row" style="margin-top:12px"><button class="btn primary" type="submit">自己採点する</button><button class="btn ghost" type="button" id="selfCancel">やめる</button></div>
+      </form>`;
+    setReader("model");
+    $("selfCancel").onclick = () => (hasResultHere() ? renderResult() : renderIdle());
+    $("selfForm").onsubmit = (e) => {
+      e.preventDefault();
+      const p = current();
+      const scores = {}, comments = {};
+      CRIT.forEach(([k]) => {
+        const boxes = [...$("selfForm").querySelectorAll(`input[name="${k}"]`)];
+        scores[k] = boxes.filter((b) => b.checked).length * 2;
+        const miss = C[k].filter((_, i) => !boxes[i].checked);
+        comments[k] = miss.length ? "見直し：" + miss.join("／") : "チェック項目はすべてできています";
+      });
+      const result = {
+        self: true, mode: state.mode, pid: p.id, answer,
+        title: state.mode === "opinion" ? p.topic : p.title,
+        scores, total: Object.values(scores).reduce((a, b) => a + b, 0), comments,
+        overall: "セルフチェックによる目安の点数です。AI添削を使うと、文法や語彙の誤りを1か所ずつ指摘してもらえます。",
+        good: [], corrections: [], revised: "", model_answer: ""
+      };
+      state.result = result;
+      $("tabRevised").disabled = true;
+      renderResult();
+      pushHistory(result);
+    };
+  };
+
+  function showNotice(kind, msg) {
+    const prev = state.result && state.result.mode === state.mode ? null : true;
+    if (prev) renderIdle(); else renderResult();
+    const d = document.createElement("div");
+    d.className = "notice " + kind; d.style.marginTop = "12px"; d.textContent = msg;
+    $("resultCard").prepend(d);
+  }
+
+  // ---------- AI problem generation ----------
+  $("genBtn").onclick = async () => {
+    if (!getKey()) { $("genStatus").innerHTML = `<div class="notice err" style="margin-top:10px">${esc(ERR.no_key)}</div>`; openSettings(true); return; }
+    const mode = state.mode;
+    $("genBtn").disabled = true;
+    $("genStatus").innerHTML = `<div class="thinking" style="margin-top:10px"><span class="pen"></span>新しい問題を作っています…</div>`;
+    const avoid = problems(mode).map((p) => p.topic || p.title).join(" / ");
+    const prompt = mode === "opinion"
+      ? `Create one new Eiken Grade Pre-1 (英検準1級) opinion-essay writing question in the official 2024 format, on a social issue (technology, environment, education, work, health, government policy, etc.). Avoid these existing topics: ${avoid}.
+Reply with ONLY JSON: {"topic": "a question such as 'Should ...?' or 'Agree or disagree: ...'", "points": ["4 short noun phrases"], "model": "a high-scoring model essay of 125–145 words using two of the points, with intro, two body paragraphs, conclusion; paragraphs separated by \\n\\n"}`
+      : `Create one new Eiken Grade Pre-1 (英検準1級) summary writing question in the official 2024 format. Avoid these existing titles: ${avoid}.
+The passage is an informative article of 190–220 words in exactly 3 paragraphs: (1) introduces a topic/trend, (2) advantages or supporting facts, (3) problems or counterpoints, using connectors like However / Nevertheless.
+Reply with ONLY JSON: {"title": "short title", "passage": "3 paragraphs separated by \\n\\n", "model": "a model summary of 60–70 words that paraphrases instead of copying"}`;
+    try {
+      const r = await askClaude(prompt, mode === "opinion" ? OPINION_SCHEMA : SUMMARY_SCHEMA);
+      const ok = mode === "opinion" ? (r?.topic && Array.isArray(r.points) && r.model) : (r?.title && r?.passage && r?.model);
+      if (!ok) throw { code: "invalid_json" };
+      const item = mode === "opinion"
+        ? { id: "ai" + Date.now(), ai: true, topic: String(r.topic), points: r.points.slice(0, 4).map(String), model: String(r.model) }
+        : { id: "ai" + Date.now(), ai: true, title: String(r.title), passage: String(r.passage), model: String(r.model) };
+      custom[mode] = [...(custom[mode] || []), item].slice(-20);
+      store.set("p1w-custom", custom);
+      $("genStatus").innerHTML = "";
+      if (state.mode === mode) selectProblem(item.id);
+    } catch (e) {
+      $("genStatus").innerHTML = `<div class="notice err" style="margin-top:10px">${esc(errMsg(e))}</div>`;
+    } finally {
+      $("genBtn").disabled = false;
+    }
+  };
+
+  // ---------- Text to speech ----------
+  const synth = window.speechSynthesis;
+  let voices = [], queue = [], qi = 0, speaking = false, paused = false, runId = 0;
+
+  function loadVoices() {
+    if (!synth) return;
+    const all = synth.getVoices().filter((v) => /^en[-_]/i.test(v.lang));
+    if (!all.length) return;
+    const rank = (v) => (/(natural|neural|online|premium|enhanced|google)/i.test(v.name) ? 0 : 1) + (/en[-_]US/i.test(v.lang) ? 0 : /en[-_]GB/i.test(v.lang) ? 0.2 : 0.5);
+    voices = all.sort((a, b) => rank(a) - rank(b));
+    const saved = store.get("p1w-voice", "");
+    $("voiceSel").innerHTML = voices.map((v, i) => `<option value="${i}">${esc(v.name.replace(/Microsoft |Google /, ""))} (${esc(v.lang)})</option>`).join("");
+    const si = voices.findIndex((v) => v.name === saved);
+    $("voiceSel").value = String(si >= 0 ? si : 0);
+  }
+  if (!synth || typeof SpeechSynthesisUtterance === "undefined") {
+    $("player").hidden = true; $("ttsNote").hidden = false;
+  } else {
+    loadVoices();
+    synth.addEventListener?.("voiceschanged", loadVoices);
+    $("rateSel").value = String(store.get("p1w-rate", "0.9"));
+  }
+  $("voiceSel").onchange = () => { store.set("p1w-voice", voices[+$("voiceSel").value]?.name || ""); if (speaking) restartAt(qi); };
+  $("rateSel").onchange = () => { store.set("p1w-rate", $("rateSel").value); if (speaking) restartAt(qi); };
+
+  function readerText(key) {
+    const p = current();
+    if (key === "revised") return state.result?.revised || "";
+    if (key === "passage") return state.mode === "summary" ? p.passage : "";
+    const r = state.result;
+    if (r && r.mode === state.mode && r.pid === state.pid && r.model_answer) return r.model_answer;
+    return p.model;
+  }
+
+  function setReader(key) {
+    stopSpeak();
+    state.readerKey = key;
+    ["model", "revised", "passage"].forEach((k) => {
+      const t = $("tab" + k[0].toUpperCase() + k.slice(1));
+      t.setAttribute("aria-selected", String(k === key));
+    });
+    const text = readerText(key);
+    queue = [];
+    const paras = text.split(/\n\s*\n/).filter((x) => x.trim());
+    $("reader").innerHTML = paras.map((para) => {
+      const sents = para.match(/[^.!?]+(?:[.!?]+["'’”)]*|$)\s*/g) || [para];
+      return "<p>" + sents.map((s) => {
+        const i = queue.push(s.trim()) - 1;
+        return `<span class="s" data-i="${i}">${esc(s)}</span>`;
+      }).join("") + "</p>";
+    }).join("") || `<p class="empty">まだ内容がありません。</p>`;
+    const aiModel = key === "model" && state.result && state.result.mode === state.mode && state.result.pid === state.pid && state.result.model_answer;
+    $("readerWc").textContent = text ? `${countWords(text)} words${aiModel ? " · 添削時にAIが作成" : ""}` : "";
+  }
+
+  function highlight(i) {
+    $("reader").querySelectorAll(".s.now").forEach((el) => el.classList.remove("now"));
+    const el = $("reader").querySelector(`.s[data-i="${i}"]`);
+    if (el) el.classList.add("now");
+  }
+
+  function speakFrom(i) {
+    if (!synth || !queue.length) return;
+    const my = ++runId;
+    synth.cancel();
+    speaking = true; paused = false; qi = i;
+    $("playBtn").textContent = "⏸ 一時停止";
+    const next = () => {
+      if (my !== runId) return;
+      if (qi >= queue.length) { stopSpeak(); return; }
+      const u = new SpeechSynthesisUtterance(queue[qi]);
+      const v = voices[+$("voiceSel").value];
+      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-US";
+      u.rate = parseFloat($("rateSel").value) || 1;
+      u.onend = () => { if (my !== runId) return; qi++; next(); };
+      u.onerror = (ev) => { if (my !== runId || ev.error === "interrupted" || ev.error === "canceled") return; stopSpeak(); };
+      highlight(qi);
+      synth.speak(u);
+    };
+    next();
+  }
+  function restartAt(i) { speakFrom(i); }
+  function stopSpeak() {
+    runId++;
+    if (synth) synth.cancel();
+    speaking = false; paused = false;
+    $("playBtn").textContent = "▶ 再生";
+    highlight(-1);
+  }
+  $("playBtn").onclick = () => {
+    if (!synth) return;
+    if (!speaking) { speakFrom(0); return; }
+    if (!paused) { synth.pause(); paused = true; $("playBtn").textContent = "▶ 再開"; }
+    else { synth.resume(); paused = false; $("playBtn").textContent = "⏸ 一時停止"; }
+  };
+  $("stopSpeak").onclick = stopSpeak;
+  $("reader").addEventListener("click", (e) => {
+    const s = e.target.closest(".s");
+    if (s) speakFrom(+s.dataset.i);
+  });
+  $("tabModel").onclick = () => setReader("model");
+  $("tabRevised").onclick = () => setReader("revised");
+  $("tabPassage").onclick = () => setReader("passage");
+
+  // ---------- History ----------
+  function pushHistory(r) {
+    const h = store.get("p1w-history", []);
+    h.unshift({ d: Date.now(), self: !!r.self, mode: r.mode, title: r.title, total: r.total, s: r.scores });
+    store.set("p1w-history", h.slice(0, 30));
+    renderHistory();
+  }
+  function renderHistory() {
+    const h = store.get("p1w-history", []);
+    if (!h.length) { $("hist").innerHTML = `<li style="display:block" class="empty">まだ記録はありません。採点するとここにスコアが残ります（このブラウザ内にのみ保存）。</li>`; return; }
+    $("hist").innerHTML = h.slice(0, 8).map((x) => {
+      const d = new Date(x.d);
+      const ds = `${d.getMonth() + 1}/${String(d.getDate()).padStart(2, "0")}`;
+      const [cls] = verdict(x.total);
+      return `<li><span class="d">${ds}</span><span class="t"><span class="tag" style="margin:0 6px 0 0">${esc(MODES[x.mode]?.name || "")}</span>${x.self ? `<span class="tag" style="margin:0 6px 0 0">自己</span>` : ""}${esc(x.title)}</span><span class="sc verdict ${cls}">${x.total}/16</span></li>`;
+    }).join("");
+  }
+
+  // ---------- Wiring ----------
+  function selectProblem(id) {
+    state.pid = id;
+    store.set("p1w-pid-" + state.mode, id);
+    renderPick(); renderQuestion(); loadDraft();
+    if (state.result && (state.result.mode !== state.mode || state.result.pid !== state.pid)) {
+      state.result = null; $("tabRevised").disabled = true;
+    }
+    state.result ? renderResult() : renderIdle();
+    setReader("model");
+  }
+  function setMode(m) {
+    state.mode = m; store.set("p1w-mode", m);
+    state.pid = null;
+    renderPick();
+    selectProblem(state.pid);
+  }
+  $("problemPick").onchange = () => selectProblem($("problemPick").value);
+  $("modeOpinion").onclick = () => setMode("opinion");
+  $("modeSummary").onclick = () => setMode("summary");
+
+  if (!MODES[state.mode]) state.mode = "opinion";
+  setMode(state.mode);
+  renderHistory();
+  if (!getKey()) openSettings(true);
+})();
+
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
+</script>
+</body>
+</html>
